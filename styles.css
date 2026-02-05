@@ -51,12 +51,41 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.task.current {
+  background: #e0f2fe;
+}
+
 .task.pending {
   background: #e2e8f0;
 }
 
 .task.completed {
   background: #dcfce7;
+}
+
+.progress {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.progress .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  border: 2px solid #cbd5f5;
+}
+
+.progress .dot.current {
+  background: #38bdf8;
+  border-color: #0284c7;
+}
+
+.progress .dot.completed {
+  background: #22c55e;
+  border-color: #15803d;
 }
 
 .pictogram {

@@ -52,6 +52,7 @@ const feedback = document.getElementById("feedback");
 const doneButton = document.getElementById("done-button");
 const reminderButton = document.getElementById("reminder-button");
 const finalScreen = document.getElementById("final-screen");
+const progressList = document.getElementById("progress-list");
 
 let currentStep = 0;
 stepTotal.textContent = steps.length.toString();
@@ -84,6 +85,7 @@ const updateTask = () => {
   taskSubtitle.textContent = current.subtitle;
   setTaskState("current");
   updateReminder();
+  updateProgress();
 };
 
 const playChime = () => {
@@ -172,6 +174,7 @@ const completeStep = () => {
   showFeedback();
   playChime();
   setTaskState("completed");
+  markProgressStep(currentStep, "completed");
 
   setTimeout(() => {
     currentStep += 1;
@@ -186,9 +189,40 @@ const completeStep = () => {
   }, 500);
 };
 
+const createProgressDots = () => {
+  progressList.innerHTML = "";
+  steps.forEach((step, index) => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    dot.setAttribute("role", "listitem");
+    dot.setAttribute("aria-label", `Paso ${index + 1}: ${step.title}`);
+    progressList.appendChild(dot);
+  });
+};
+
+const markProgressStep = (index, state) => {
+  const dot = progressList.children[index];
+  if (!dot) return;
+  dot.classList.remove("pending", "current", "completed");
+  dot.classList.add(state);
+};
+
+const updateProgress = () => {
+  steps.forEach((_, index) => {
+    if (index < currentStep) {
+      markProgressStep(index, "completed");
+    } else if (index === currentStep) {
+      markProgressStep(index, "current");
+    } else {
+      markProgressStep(index, "pending");
+    }
+  });
+};
+
 reminderButton.addEventListener("click", requestReminderPermission);
 
 doneButton.addEventListener("click", completeStep);
 
+createProgressDots();
 updateTask();
 maybeSendDailyReminder();
