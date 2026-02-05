@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fiesta Lista</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <header class="header">
+      <h1>¿Qué toca hacer hoy?</h1>
+      <p class="step">Paso <span id="step-number">1</span> de <span id="step-total">8</span></p>
+    </header>
+
+    <section class="task" id="task-card" role="group" aria-label="Tarea actual">
+      <div class="pictogram" id="task-emoji" aria-hidden="true">📍</div>
+      <div class="task-text">
+        <h2 id="task-title">Elegir lugar</h2>
+        <p id="task-subtitle">Piensa dónde será la fiesta</p>
+      </div>
+    </section>
+
+    <section class="reminder" aria-live="polite">
+      <p id="reminder-text">Hoy toca elegir el lugar 📍</p>
+    </section>
+
+    <section class="feedback" id="feedback" role="status" aria-live="polite"></section>
+
+    <div class="actions">
+      <button class="primary" id="done-button">✅ Hecho</button>
+      <button class="secondary" id="reminder-button">🔔 Poner recordatorio</button>
+    </div>
+  </main>
+
+  <div class="final" id="final-screen" hidden>
+    <div class="confetti" aria-hidden="true"></div>
+    <h2>🎉 ¡Tu fiesta está lista!</h2>
+    <p>Has preparado todo tú solo/a.</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
